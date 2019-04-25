@@ -1,28 +1,15 @@
 package uy.com.amensg.activaciones.robot;
 
-import uy.com.amensg.activaciones.webservices.ActivacionesWS;
-import uy.com.amensg.activaciones.webservices.ActivacionesWSProxy;
-
 public class ActivacionesProxy {
 
+	private IConnectionStrategy iConnectionStrategy = new ConnectionStrategyWebService();
+	
 	public void getSiguienteMidParaActivar() {
-		try {
-			ActivacionesWS webService = new ActivacionesWSProxy();
-			
-			System.out.println(webService.getSiguienteMidParaActivar());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		System.out.println(iConnectionStrategy.getSiguienteMidParaActivar());
 	}
 	
 	public void actualizarDatosActivacion(String mid, String estadoActivacionId) {
-		try {
-			ActivacionesWS webService = new ActivacionesWSProxy();
-			
-			webService.actualizarDatosActivacion(mid, estadoActivacionId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		iConnectionStrategy.actualizarDatosActivacion(mid, estadoActivacionId);
 	}
 	
 	public static void main(String[] args) {

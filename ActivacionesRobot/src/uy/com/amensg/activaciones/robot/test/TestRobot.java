@@ -1,14 +1,24 @@
 package uy.com.amensg.activaciones.robot.test;
 
-import uy.com.amensg.activaciones.webservices.ActivacionesWS;
-import uy.com.amensg.activaciones.webservices.ActivacionesWSProxy;
+import java.net.URL;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
+import uy.com.amensg.activaciones.robot.util.Configuration;
+import uy.com.amensg.activaciones.webservices.ActivacionesWebService;
 
 public class TestRobot {
 
 	public TestRobot() {
 		try {
-			ActivacionesWS webService = new ActivacionesWSProxy();
-			
+			Service service = Service.create(
+				new URL(Configuration.getInstance().getProperty("ActivacionesWebServiceWSDLURL")), 
+				new QName("http://webservices.logistica.amensg.com.uy/", "ActivacionesWebServiceService")
+			);
+				
+			ActivacionesWebService webService = service.getPort(ActivacionesWebService.class);
+				
 			System.out.println(webService.getSiguienteMidParaActivar());
 			
 			webService.actualizarDatosActivacion("mid", "estadoActivacionId");
